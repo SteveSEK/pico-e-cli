@@ -98,10 +98,10 @@ void cmd_w5x00_readbuffdelay(char* param1, char* param2, char* param3)
         WIZCHIP_CRITICAL_ENTER();
         WIZCHIP.CS._select();   //M20150601 : Moved here.
 
-	  	  spi_data[0] = 0x0F;
-		    spi_data[1] = (uint16_t)((addr+i) & 0xFF00) >>  8;
-		    spi_data[2] = (uint16_t)((addr+i) & 0x00FF) >>  0;
-		    WIZCHIP.IF.SPI._write_burst(spi_data, 3); // ===> (A)
+        spi_data[0] = 0x0F;
+        spi_data[1] = (uint16_t)((addr+i) & 0xFF00) >>  8;
+        spi_data[2] = (uint16_t)((addr+i) & 0x00FF) >>  0;
+        WIZCHIP.IF.SPI._write_burst(spi_data, 3); // ===> (A)
 
         for(uint32_t ii=0;ii<delay;ii++)    { __asm volatile ("nop"); }
 
