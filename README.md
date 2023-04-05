@@ -1,13 +1,13 @@
 Raspberry Pi Pico Ethernet CLI Test
 ======================================
 
-## Overview
+### Overview
 이 레파지토리는 RP2040과 W5100S의 구성에서 CLI를 이용하여 여러 가지 테스트를 진행하기 위함이다.
 
-## Download
+### Download
 Download를 하면 바로 테스트를 할 수 있다.
 
-## SPI 설정
+### SPI 설정
 SPI는 기존의 방식을 사용하거나 RP2040 PIO를 사용할 수 있다.
 단, SPI Normal 방식와 PIO 방식의 Clock 설정 변수가 다른 점을 주의하세요.
 그리고, SPI를 재 설정할 때에는 초기화 후에 해야 한다.
@@ -83,7 +83,7 @@ w5x00 piohook e480 // set    pindirs, 0      side 0 [4]
 
 ## Misc CLI Command
 아래와 같은 Command를 이용해서 추가적인 테스트를 할 수 있다.
-'''
+```
 system reset
 
 w5x00 init spinormal 4
@@ -107,4 +107,4 @@ w5x00 getver
 
 w5x00 lwipinit 192.168.10.201 255.255.255.0 192.168.10.1
 w5x00 iperf
-'''
+```
