@@ -74,6 +74,48 @@ w5x00 piohook e480 // set    pindirs, 0      side 0 [4]
 ```
 ![image](https://user-images.githubusercontent.com/2126804/230025606-4772484b-5868-4cad-ad44-138823cb310d.png)
 
+### Test Function
+아래는 테스트에 활용한 함수이다.
+W5x00 칩은 (A) 동작과 (B) 동작 사이에 일정 시간이 필요하고 이를 테스트하고 위하여 Delay(nop)를 조정하는 옵션을 추가하였다.
+```CPP
+void cmd_w5x00_readbuffdelay(char* param1, char* param2, char* param3)
+{
+    uint8_t bufftemp[256] = {0,};
+    uint32_t addr = (uint32_t) strtoul(param1, NULL, 16);
+    uint32_t len = (uint32_t) strtoul(param2, NULL, 10);
+    uint32_t delay = (uint32_t) strtoul(param3, NULL, 10);
+
+    if ( len>sizeof(bufftemp) )
+    {
+        printf("cmd_w5x00_chipreadbuff : size error \n");
+        return; 
+    }
+
+    //  The below works similarly to WIZCHIP_READ_BUF()
+    {
+        uint8_t spi_data[3];
+        uint16_t i = 0;
+        WIZCHIP_CRITICAL_ENTER();
+        WIZCHIP.CS._select();   //M20150601 : Moved here.
+
+	  	  spi_data[0] = 0x0F;
+		    spi_data[1] = (uint16_t)((addr+i) & 0xFF00) >>  8;
+		    spi_data[2] = (uint16_t)((addr+i) & 0x00FF) >>  0;
+		    WIZCHIP.IF.SPI._write_burst(spi_data, 3); // ===> (A)
+
+        for(uint32_t ii=0;ii<delay;ii++)    { __asm volatile ("nop"); }
+
+        WIZCHIP.IF.SPI._read_burst(bufftemp, len); // ===> (B)
+
+        WIZCHIP.CS._deselect();    //M20150601 : Moved Here.
+        WIZCHIP_CRITICAL_EXIT();  
+    }
+
+    printf("W5x00(0x%08x) : ", addr);
+    dump_bytes(bufftemp, len);
+}
+
+```
 
 ### SPI Normal(not PIO), SPI Clock 16.6MHz, SPI R/W Delay 100
 ![image](https://user-images.githubusercontent.com/2126804/230020530-8e207293-7fc0-4b39-bd98-64ff3faafac8.png)
