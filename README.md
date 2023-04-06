@@ -168,7 +168,41 @@ netif status changed 192.168.10.201
 >> 
 ```
 ![image](https://user-images.githubusercontent.com/2126804/230248436-cc7e97f1-7fb7-4472-b074-6f287fef17d8.png)
-
+```
+>> w5x00 init spipio 2
+Using PIO to talk to wiznet
+PIO Instruction(0x0000) : 6001 1040 e000 e180 f026 4001 1045 4001 0083 
+mac address 00:08:dc:55:66:77
+phy config mode: manual
+phy config speed: 100
+phy config duplex: full
+>> w5x00 readbuff 09 6
+W5x00(0x00000009) : 
+00 08 dc 55 66 77 
+>> w5x00 readbuff 0 256
+W5x00(0x00000000) : 
+03 00 00 00 00 00 00 00  00 00 08 dc 55 66 77 00 
+00 00 00 00 00 00 00 07  d0 07 03 03 00 00 00 00 
+00 00 00 00 00 00 00 00  28 00 00 00 00 00 00 00 
+40 00 00 00 00 00 00 00  00 00 ff ff 01 81 0a 00 
+a1 00 21 00 00 01 00 40  00 00 00 00 00 07 d0 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 0c 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+51 00 85 5b 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+>> w5x00 lwipinit 192.168.10.201 255.255.255.0 192.168.10.1
+netif link status changed up
+netif status changed 192.168.10.201
+>> w5x00 iperf
+>> 
+```
 
 ### Misc CLI Command
 You can conduct additional tests using the following commands.
