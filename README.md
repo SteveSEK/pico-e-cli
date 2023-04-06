@@ -48,7 +48,8 @@ phy config duplex: full
 ```
 
 ### PIO Code Hook
-To change the PIO Code during running, I added wiznet_spi_pio.pio.static.h file and changed some code.
+To change the PIO Code during running, I added ***wiznet_spi_pio.pio.static.h*** file and changed some code.
+* wiznet_spi_pio.pio.static.h
 ```CPP
 //static const uint16_t wiznet_spi_write_read_program_instructions[] = {
 uint16_t wiznet_spi_write_read_program_instructions[] = {
@@ -80,6 +81,7 @@ The following is about the Data Ready Time of W5x00, but when using the IoLibrar
 
 ### Test Function
 Below is the function used in the test. To test the delay (nop) between the (A) and (B) operations in the W5x00 chip, an option to adjust the delay was added.
+* testcommand.c
 ```CPP
 void cmd_w5x00_readbuffdelay(char* param1, char* param2, char* param3)
 {
