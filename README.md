@@ -8,7 +8,6 @@ This repository is intended to perform various tests using the CLI in the comnin
 * You can start this quickly with this compiled files.
   - **[Raspberry Pi Pico Ethernet CLI (UF2 file 200KB)](build/examples/pico-e-cli/pico-e-cli.uf2)**
   
-### SPI 설정
 ### SPI Configuration
 You can use the normal SPI method or RP2040 PIO method.   
 Please note that the clock setting variables for the SPI normal method and the PIO method are different. 
@@ -74,6 +73,10 @@ w5x00 piohook e180 // set    pindirs, 0      side 0 [1]
 w5x00 piohook e480 // set    pindirs, 0      side 0 [4] 
 ```
 ![image](https://user-images.githubusercontent.com/2126804/230025606-4772484b-5868-4cad-ad44-138823cb310d.png)
+
+### SPI Data Ready Time
+The following is about the Data Ready Time of W5x00, but when using the IoLibrary, a sufficient delay time is typically established.
+![image](https://user-images.githubusercontent.com/2126804/230268105-cda04a0a-f41f-4940-8479-c4fb21245c6b.png)
 
 ### Test Function
 Below is the function used in the test. To test the delay (nop) between the (A) and (B) operations in the W5x00 chip, an option to adjust the delay was added.
