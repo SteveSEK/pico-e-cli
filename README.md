@@ -125,10 +125,10 @@ void cmd_w5x00_readbuffdelay(char* param1, char* param2, char* param3)
 ![image](https://user-images.githubusercontent.com/2126804/230020923-f6efa3d6-4626-4a27-b4ee-276c17877912.png)
 
 ### SPI PIO, SPI Clock 16.6MHz, SPI R/W Delay 100, PIO Delay 0 (0xe080)
-![image](https://user-images.githubusercontent.com/2126804/230020753-2f0ce2e0-09f5-4358-a4ca-2cab062e3d7d.png)
+![image](https://user-images.githubusercontent.com/2126804/230314287-780fce07-b201-439b-9c12-65650ca79a31.png)
 
 ### SPI PIO, SPI Clock 16.6MHz, SPI R/W Delay 100, PIO Delay 4 (0xe480)
-![image](https://user-images.githubusercontent.com/2126804/230021134-d6dc5685-e853-4b33-9220-a206488539b2.png)
+![image](https://user-images.githubusercontent.com/2126804/230314349-cdfd8edb-5c70-433d-b489-4ef234f8bfa6.png)
 
 ### Test Example
 Below is the log of reading the internal registers of the W5x00 chip and conducting an iPerf Throughput test using Normal SPI at 32MHz.
