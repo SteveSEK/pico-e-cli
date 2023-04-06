@@ -127,6 +127,49 @@ void cmd_w5x00_readbuffdelay(char* param1, char* param2, char* param3)
 ### SPI PIO, SPI Clock 16.6MHz, SPI R/W Delay 100, PIO Delay 4 (0xe480)
 ![image](https://user-images.githubusercontent.com/2126804/230021134-d6dc5685-e853-4b33-9220-a206488539b2.png)
 
+### Test Example
+아래는 Normal SPI 32MHz로 W5x00 칩 내부 레지스터를 읽고 iPerf Throuhgput 테스트를 한 로그이다.
+```
+#################### Pico Terminal ####################
+>> 
+>> w5x00 init spinormal 4
+Using SPI to talk to wiznet
+spi_init return = 33250000Hz
+mac address 00:08:dc:55:66:77
+phy config mode: manual
+phy config speed: 100
+phy config duplex: full
+>> w5x00 getver
+Version(0x00000080) : 51 
+>> w5x00 getmac
+mac address(0x00000009) : 00:08:dc:55:66:77
+>> w5x00 readbuff 0 256
+W5x00(0x00000000) : 
+03 00 00 00 00 00 00 00  00 00 08 dc 55 66 77 00 
+00 00 00 00 00 00 00 07  d0 07 03 03 00 00 00 00 
+00 00 00 00 00 00 00 00  28 00 00 00 00 00 00 00 
+40 00 00 00 00 00 00 00  00 00 ff ff 01 81 0a 00 
+a1 00 21 00 00 01 00 40  00 00 00 00 00 07 d0 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 0c 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+51 00 71 ca 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+>> w5x00 lwipinit 192.168.10.201 255.255.255.0 192.168.10.1
+netif link status changed up
+netif status changed 192.168.10.201
+>> w5x00 iperf
+>> 
+```
+![image](https://user-images.githubusercontent.com/2126804/230248436-cc7e97f1-7fb7-4472-b074-6f287fef17d8.png)
+
+
 ### Misc CLI Command
 아래와 같은 Command를 이용해서 추가적인 테스트를 할 수 있다.
 ```
