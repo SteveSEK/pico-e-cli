@@ -6,7 +6,7 @@ This repository is intended to perform various tests using the CLI in the comnin
 
 ### Quick Start Firmware
 * You can start this quickly with this compiled files.
-  - **[Raspberry Pi Pico Ethernet CLI (UF2 file 200KB)](build/examples/pico-e-cli/pico-e-cli.uf2)**
+  - **[Firmware download](build/examples/pico-e-cli/pico-e-cli.uf2)**(UF2 file 200KB)
   
 ### SPI Configuration
 You can use the normal SPI method or RP2040 PIO method.   
