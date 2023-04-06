@@ -69,9 +69,12 @@ uint16_t wiznet_spi_write_read_program_instructions[] = {
 The 0xe180 part of the wiznet_spi_write_read_program_instructions is related to the PIO Delay, and this can be modified with the "w5x00 piohook" command. The Instruction Code and Delay related parts were referenced from the RP2040 data sheet.
 
 ```
-w5x00 piohook e080 // set    pindirs, 0      side 0 [0] 
-w5x00 piohook e180 // set    pindirs, 0      side 0 [1] 
-w5x00 piohook e480 // set    pindirs, 0      side 0 [4] 
+>> w5x00 piohook e080 // set    pindirs, 0      side 0 [0] 
+..........
+>> w5x00 piohook e180 // set    pindirs, 0      side 0 [1] 
+..........
+>> w5x00 piohook e480 // set    pindirs, 0      side 0 [4] 
+..........
 ```
 ![image](https://user-images.githubusercontent.com/2126804/230025606-4772484b-5868-4cad-ad44-138823cb310d.png)
 
