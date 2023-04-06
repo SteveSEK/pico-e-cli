@@ -48,8 +48,8 @@ phy config duplex: full
 ```
 
 ### PIO Code Hook
-Some code has been modified to change the PIO Code during running.
-```
+To change the PIO Code during running, I added wiznet_spi_pio.pio.static.h file and changed some code.
+```CPP
 //static const uint16_t wiznet_spi_write_read_program_instructions[] = {
 uint16_t wiznet_spi_write_read_program_instructions[] = {
             //     .wrap_target
