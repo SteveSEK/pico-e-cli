@@ -135,6 +135,72 @@ void cmd_w5x00_readbuffdelay(char* param1, char* param2, char* param3)
 ### SPI PIO, SPI Clock 16.6MHz, SPI R/W Delay 100, PIO Delay 4 (0xe480)
 ![image](https://user-images.githubusercontent.com/2126804/230314349-cdfd8edb-5c70-433d-b489-4ef234f8bfa6.png)
 
+### Conclusion
+* Case A
+``` assembly
+public write_bits:
+    out pins, 1             side 0
+    jmp x-- write_bits      side 1
+    set pins 0              side 0    ; delay test 
+public write_end:
+read_byte_delay:
+    set pindirs 0           side 0    ; delay test 
+read_byte:
+    set x 6                 side 1
+read_bits:
+    in pins, 1              side 0
+    jmp x-- read_bits       side 1
+    in pins, 1              side 0
+    jmp y-- read_byte_delay side 0
+public read_end:
+```
+![image](https://user-images.githubusercontent.com/2126804/231684597-bb026ac9-189f-4c6e-b358-e25a5cb53a50.png)
+![image](https://user-images.githubusercontent.com/2126804/231687658-36d6145b-6a49-453e-a210-a501d2691c8b.png)
+
+
+* Case B
+``` assembly
+public write_bits:
+    out pins, 1             side 0
+    jmp x-- write_bits      side 1
+    set pins 0              side 0    ; delay test 
+public write_end:
+read_byte_delay:
+    set pindirs 0           side 0 [8]; delay test 
+read_byte:
+    set x 6                 side 1
+read_bits:
+    in pins, 1              side 0
+    jmp x-- read_bits       side 1
+    in pins, 1              side 0
+    jmp y-- read_byte_delay side 0
+public read_end:
+```
+![image](https://user-images.githubusercontent.com/2126804/231684943-3c5ac08b-f2f9-49a7-b700-b29ef8000696.png)
+
+* Case C
+``` assembly
+public write_bits:
+    out pins, 1             side 0
+    jmp x-- write_bits      side 1
+    set pins 0              side 0 [8]; delay test 
+public write_end:
+read_byte_delay:
+    set pindirs 0           side 0    ; delay test 
+read_byte:
+    set x 6                 side 1
+read_bits:
+    in pins, 1              side 0
+    jmp x-- read_bits       side 1
+    in pins, 1              side 0
+    jmp y-- read_byte_delay side 0
+public read_end:
+```
+![image](https://user-images.githubusercontent.com/2126804/231685173-25a11ac2-9ffe-4f0b-8942-1a7c8b33db02.png)
+
+Like ***Case C***, i is recommended to add some delay after sending  ***Control Phase + Address Phase***  to allow for internal processing of the W5x00 chip.
+
+
 ### Test Example
 Below is the log of reading the internal registers of the W5x00 chip and conducting an iPerf Throughput test using Normal SPI at 32MHz.
 ```
