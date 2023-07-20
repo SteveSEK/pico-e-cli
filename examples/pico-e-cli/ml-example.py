@@ -311,4 +311,4 @@ from sklearn.metrics import classification_report
 cr = classification_report(y_test, y_pred, target_names=['class 0', 'class 1'])
 print(cr)
 
-from sklearn.metricx
+from sklearm
