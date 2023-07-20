@@ -1,24 +1,15 @@
-### 1. Library
-
-```python
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-```
 
-```python
 #AIDU 
 from aicentro.session import Session
 from aicentro.framework.keras import Keras as AiduFrm
 
 aidu_session = Session(verify=False)
 aidu_framework = AiduFrm(session=aidu_session)
-```
 
-### 3. Dataframe
-
-```python
 df
 df.info()
 df.shape
@@ -30,25 +21,18 @@ df.describe()
 df['INCOME'].median()
 df.median()
 
-#컬럼 내 각각의 값 분포 -> 제일 위 값이 최빈값
 df['INCOME'].value_counts()
 
-#특정 컬럼 내 각각의 값 분포 비율
 df['REPORTED_SATISFACTION'].value_counts(normalize=True)
 
-#특정 컬럼 내 유일한 값 확인
 df['REPORTED_SATISFACTION'].unique()
 
-#데이터 결측치(null값) 확인
 df.isna().sum()
 
-#데이터 타입 확인
 df.dtypes
 
-#두 변수간 상관 관계 분석
 df.corr()
 
-# 레이블 선택
 y = df['OVERAGE']
 y
 ```
@@ -89,11 +73,7 @@ sns.boxplot(y='AVERAGE_CALL_DURATION', x='CHURN', data=df)
 
 #pairplot
 sns.pairplot(data=df, x_vars=['컬럼', '컬럼', '컬럼'], y_vars=['컬럼', '컬럼', '컬럼'])
-```
 
-### 4. Data
-
-```python
 #특정 컬럼 삭제 -> axis=0 행 삭제 / axis=1 열 삭제
 df1 = df.drop(['id', 'COLLEGE', 'LEFTOVER'], axis=1)
 
@@ -124,9 +104,7 @@ df1 = df1.dropna()
 
 #이상치 데이터 확인
 sns.boxplot(x='CHURN', y='LEFTOVER', data=df)
-```
 
-```python
 ## 라벨 인코딩 ##
 
 #데이터 복사
@@ -145,22 +123,16 @@ from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 df['REPORTED_USAGE_LEVEL'] = le.fit_transform(df['REPORTED_USAGE_LEVEL'])
 df['REPORTED_USAGE_LEVEL'] = df['REPORTED_USAGE_LEVEL'].astype('float')
-```
 
-```python
 ## 원-핫 인코딩 ##
 
 # 문자를 숫자로 변경 (원-핫 인코딩)
 # drop_first=True  첫번째 카테고리(인코딩 데이터) 삭제
 cols = df.select_dtypes('object').columns.tolist()
 df = pd.get_dummies(columns=cols, data=df, drop_first=True)
-```
-
----
 
 ### **5. 데이터 분리 (x, y)**
 
-```python
 #Feature(X), Target(Y) 분리
 target = 'CHURN'
 x = df.drop(target, axis=1)
@@ -170,11 +142,7 @@ y = df[target]
 from sklearn.model_selection import train_test_split
 #test_size는 원래 데이터(Y)의 분포 비율
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2023)
-```
 
-### **6. 데이터 스케일링 (정규화)**
-
-```python
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 
@@ -185,11 +153,7 @@ scaler = StandardScaler()
 
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
-```
 
-### **7. 머신러닝**
-
-```python
 ### 회귀 ###
 
 # linear회귀
@@ -213,9 +177,7 @@ model = LogisticRegression()
 model.fit(x_train, y_train)
 y_pred = model.predict(x_test)
 print(classification_report(y_test, y_pred))
-```
 
-```python
 ### 분류 ###
 
 #의사결정트리
@@ -239,11 +201,9 @@ model = RandomForestClassifier()
 model.fit(x_train, y_train)
 y_pred = model.predict(x_test)
 print(classification_report(y_test, y_pred))
-```
 
 ### **8. 딥러닝**
 
-```python
 import tensorflow as tf
 from tensorflow.keras.backend import clear_session
 from tensorflow.keras.models import Sequential
@@ -289,9 +249,6 @@ hist = model.fit(x_train, y_train,
                 validation_data=(x_test, y_test),
                 verbose=1)
 
-```
-
-```python
 #Accurracy 그래프 그리기
 plt.title('Accuracy')
 plt.plot(hist.history['acc'], label='acc')
@@ -320,11 +277,8 @@ plt.legend()
 plt.xlabel('Epochs')
 plt.ylabel('Acc')
 plt.show()
-```
 
-### 9. 모델 성능평가
 
-```python
 y_pred = model.predict(x_test)
 
 #Confusion Matrix
@@ -356,4 +310,5 @@ print('Accuracy(정확도): %.4f' % accs)
 from sklearn.metrics import classification_report
 cr = classification_report(y_test, y_pred, target_names=['class 0', 'class 1'])
 print(cr)
-```
+
+from sklearn.metricx
